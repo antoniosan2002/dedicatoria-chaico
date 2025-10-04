@@ -272,54 +272,62 @@
     }
 
     /* 📱 Adaptación móvil */
-    @media (max-width: 768px) {
-      body {
-        padding: 20px;
-        height: 100vh;
-      }
+        @media (max-width: 768px) {
+            body {
+                padding: 20px;
+                height: 100vh;
+            }
 
-      .dedicatoria {
-        font-size: 1.1rem;
-      }
+            .dedicatoria {
+                font-size: 1.1rem;
+            }
 
-      .karaoke {
-        margin-top: 120px;
-        font-size: 1.1rem;
-      }
+            .karaoke {
+                margin-top: 20px;
+                /* ✅ antes 120px — ahora más equilibrado */
+                font-size: 1.1rem;
+            }
 
-      .foto-container {
-        top: 20%;
-        flex-direction: column;
-        gap: 10px;
-      }
+            .foto-container {
+                position: relative;
+                /* ✅ evita que tape el texto */
+                top: 0;
+                /* ✅ quita el desplazamiento que solapaba el karaoke */
+                transform: none;
+                flex-direction: column;
+                gap: 10px;
+                margin-top: 20px;
+                /* ✅ da espacio visual */
+            }
 
-      .foto-container img {
-        width: 220px;
-        height: 220px;
-      }
+            .foto-container img {
+                width: 180px;
+                /* ✅ más pequeño para pantallas chicas */
+                height: 180px;
+            }
 
-      .final {
-        font-size: 1rem;
-      }
+            .final {
+                font-size: 1rem;
+            }
 
-      #btnCarta {
-        font-size: 0.9rem;
-        padding: 8px 15px;
-      }
+            #btnCarta {
+                font-size: 0.9rem;
+                padding: 8px 15px;
+            }
 
-      .modal-content {
-        width: 90%;
-        max-width: 350px;
-        padding: 15px;
-        font-size: 0.95rem;
-      }
+            .modal-content {
+                width: 90%;
+                max-width: 350px;
+                padding: 15px;
+                font-size: 0.95rem;
+            }
 
-      .cerrar {
-        top: 10px;
-        right: 15px;
-        font-size: 22px;
-      }
-    }
+            .cerrar {
+                top: 10px;
+                right: 15px;
+                font-size: 22px;
+            }
+        }
 
     /* MODAL */
     .modal {
@@ -707,4 +715,5 @@
 
 
 </html>
+
 
