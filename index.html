@@ -2,276 +2,109 @@
 <html lang="es">
 
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Karaoke para Chaico 💖</title>
-  <style>
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-      font-family: 'Poppins', sans-serif;
-    }
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Karaoke para Chaico 💖</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
+        }
 
-    body {
-      background: linear-gradient(135deg, #ffdee9, #b5fffc);
-      height: 100vh;
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      align-items: center;
-      color: #333;
-      overflow: hidden;
-      position: relative;
-    }
+        body {
+            background: linear-gradient(135deg, #ffdee9, #b5fffc);
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            color: #333;
+            overflow: hidden;
+            position: relative;
+        }
 
-    .dedicatoria,
-    .final {
-      text-align: center;
-      font-size: 1.3rem;
-      font-weight: 500;
-      opacity: 0;
-      animation: fadeIn 3s ease forwards;
-      max-width: 90%;
-    }
+        .dedicatoria,
+        .final {
+            text-align: center;
+            font-size: 1.3rem;
+            font-weight: 500;
+            opacity: 0;
+            animation: fadeIn 3s ease forwards;
+            max-width: 90%;
+            line-height: 1.5;
+        }
 
-    .karaoke {
-      display: none;
-      text-align: center;
-      font-size: 1.4rem;
-      color: #ff4081;
-      font-weight: bold;
-      margin-top: 200px;
-    }
+        .karaoke {
+            display: none;
+            text-align: center;
+            font-size: 1.4rem;
+            color: #ff4081;
+            font-weight: bold;
+            margin-top: 200px;
+            padding: 0 10px;
+        }
 
-    .letra {
-      opacity: 0.2;
-      transition: opacity 0.4s ease;
-    }
+        .letra {
+            opacity: 0.2;
+            transition: opacity 0.4s ease;
+        }
 
-    .letra.activa {
-      opacity: 1;
-      color: #ff007f;
-      text-shadow: 0 0 10px #ff80ab;
-    }
+        .letra.activa {
+            opacity: 1;
+            color: #ff007f;
+            text-shadow: 0 0 10px #ff80ab;
+        }
 
-    .foto-container {
-      position: absolute;
-      top: 10%;
-      left: 50%;
-      transform: translateX(-50%);
-      display: flex;
-      gap: 20px;
-      opacity: 0;
-      transition: opacity 1s ease;
-    }
+        .foto-container {
+            position: absolute;
+            top: 10%;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            gap: 20px;
+            opacity: 0;
+            transition: opacity 1s ease;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
 
-    .foto-container img {
-      width: 350px;
-      height: 350px;
-      object-fit: cover;
-      border-radius: 20px;
-      box-shadow: 0 0 15px rgba(255, 105, 180, 0.6);
-      border: 3px solid white;
-    }
+        .foto-container img {
+            width: 350px;
+            height: 350px;
+            object-fit: cover;
+            border-radius: 20px;
+            box-shadow: 0 0 15px rgba(255, 105, 180, 0.6);
+            border: 3px solid white;
+        }
 
-    .foto-container.mostrar {
-      opacity: 1;
-    }
+        .foto-container.mostrar {
+            opacity: 1;
+        }
 
-    @keyframes fadeIn {
-      0% {
-        opacity: 0;
-        transform: translateY(20px);
-      }
+        @keyframes fadeIn {
+            0% {
+                opacity: 0;
+                transform: translateY(20px);
+            }
 
-      100% {
-        opacity: 1;
-        transform: translateY(0);
-      }
-    }
+            100% {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
 
-    .final {
-      display: none;
-      font-size: 1.2rem;
-      color: #444;
-      animation: fadeIn 3s ease forwards;
-    }
-  </style>
-  <style>
-    /* MODAL */
-    .modal {
-      display: none;
-      position: fixed;
-      z-index: 1000;
-      left: 0;
-      top: 0;
-      width: 100%;
-      height: 100%;
-      background: rgba(0, 0, 0, 0.6);
-      justify-content: center;
-      align-items: center;
-      animation: fadeInModal 0.5s ease;
-    }
+        .final {
+            display: none;
+            font-size: 1.2rem;
+            color: #444;
+            animation: fadeIn 3s ease forwards;
+            text-align: center;
+            padding: 0 15px;
+        }
 
-    @keyframes fadeInModal {
-      from {
-        opacity: 0;
-      }
-
-      to {
-        opacity: 1;
-      }
-    }
-
-    .modal-content {
-      background: white;
-      border-radius: 20px;
-      padding: 25px;
-      max-width: 500px;
-      text-align: center;
-      box-shadow: 0 0 20px rgba(255, 105, 180, 0.6);
-      color: #333;
-      animation: popUp 0.4s ease;
-    }
-
-    @keyframes popUp {
-      from {
-        transform: scale(0.7);
-        opacity: 0;
-      }
-
-      to {
-        transform: scale(1);
-        opacity: 1;
-      }
-    }
-
-    .cerrar {
-      position: absolute;
-      top: 15px;
-      right: 25px;
-      font-size: 24px;
-      cursor: pointer;
-      color: #ff4081;
-    }
-
-    #btnCarta {
-      padding: 10px 20px;
-      border: none;
-      background: #ff4081;
-      color: white;
-      border-radius: 10px;
-      font-size: 1rem;
-      cursor: pointer;
-      transition: transform 0.2s ease;
-    }
-
-    #btnCarta:hover {
-      transform: scale(1.05);
-      background: #ff007f;
-    }
-  </style>
-  <style>
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-      font-family: 'Poppins', sans-serif;
-    }
-
-    body {
-      background: linear-gradient(135deg, #ffdee9, #b5fffc);
-      height: 100vh;
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      align-items: center;
-      color: #333;
-      overflow: hidden;
-      position: relative;
-    }
-
-    .dedicatoria,
-    .final {
-      text-align: center;
-      font-size: 1.3rem;
-      font-weight: 500;
-      opacity: 0;
-      animation: fadeIn 3s ease forwards;
-      max-width: 90%;
-      line-height: 1.5;
-    }
-
-    .karaoke {
-      display: none;
-      text-align: center;
-      font-size: 1.4rem;
-      color: #ff4081;
-      font-weight: bold;
-      margin-top: 200px;
-      padding: 0 10px;
-    }
-
-    .letra {
-      opacity: 0.2;
-      transition: opacity 0.4s ease;
-    }
-
-    .letra.activa {
-      opacity: 1;
-      color: #ff007f;
-      text-shadow: 0 0 10px #ff80ab;
-    }
-
-    .foto-container {
-      position: absolute;
-      top: 10%;
-      left: 50%;
-      transform: translateX(-50%);
-      display: flex;
-      gap: 20px;
-      opacity: 0;
-      transition: opacity 1s ease;
-      flex-wrap: wrap;
-      justify-content: center;
-    }
-
-    .foto-container img {
-      width: 350px;
-      height: 350px;
-      object-fit: cover;
-      border-radius: 20px;
-      box-shadow: 0 0 15px rgba(255, 105, 180, 0.6);
-      border: 3px solid white;
-    }
-
-    .foto-container.mostrar {
-      opacity: 1;
-    }
-
-    @keyframes fadeIn {
-      0% {
-        opacity: 0;
-        transform: translateY(20px);
-      }
-
-      100% {
-        opacity: 1;
-        transform: translateY(0);
-      }
-    }
-
-    .final {
-      display: none;
-      font-size: 1.2rem;
-      color: #444;
-      animation: fadeIn 3s ease forwards;
-      text-align: center;
-      padding: 0 15px;
-    }
-
-    /* 📱 Adaptación móvil */
+        /* 📱 Adaptación móvil */
         @media (max-width: 768px) {
             body {
                 padding: 20px;
@@ -284,26 +117,27 @@
 
             .karaoke {
                 margin-top: 20px;
-                /* ✅ antes 120px — ahora más equilibrado */
                 font-size: 1.1rem;
+                text-align: center;
             }
 
             .foto-container {
-                position: relative;
-                /* ✅ evita que tape el texto */
-                top: 0;
-                /* ✅ quita el desplazamiento que solapaba el karaoke */
-                transform: none;
+                position: static !important;
+                top: auto !important;
+                transform: none !important;
                 flex-direction: column;
+                align-items: center;
+                justify-content: center;
                 gap: 10px;
                 margin-top: 20px;
-                /* ✅ da espacio visual */
             }
 
             .foto-container img {
                 width: 180px;
-                /* ✅ más pequeño para pantallas chicas */
                 height: 180px;
+                object-fit: cover;
+                border-radius: 15px;
+                box-shadow: 0 0 15px rgba(255, 192, 203, 0.6);
             }
 
             .final {
@@ -329,166 +163,176 @@
             }
         }
 
-    /* MODAL */
-    .modal {
-      display: none;
-      position: fixed;
-      z-index: 1000;
-      left: 0;
-      top: 0;
-      width: 100%;
-      height: 100%;
-      background: rgba(0, 0, 0, 0.6);
-      justify-content: center;
-      align-items: center;
-      animation: fadeInModal 0.5s ease;
-    }
+        /* 💻 Posición flotante solo en pantallas grandes */
+        @media (min-width: 769px) {
+            .foto-container {
+                position: absolute;
+                top: 50%;
+                transform: translateY(-50%);
+            }
+        }
 
-    @keyframes fadeInModal {
-      from {
-        opacity: 0;
-      }
+        /* MODAL */
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.6);
+            justify-content: center;
+            align-items: center;
+            animation: fadeInModal 0.5s ease;
+        }
 
-      to {
-        opacity: 1;
-      }
-    }
+        @keyframes fadeInModal {
+            from {
+                opacity: 0;
+            }
 
-    .modal-content {
-      background: white;
-      border-radius: 20px;
-      padding: 25px;
-      max-width: 500px;
-      text-align: center;
-      box-shadow: 0 0 20px rgba(255, 105, 180, 0.6);
-      color: #333;
-      animation: popUp 0.4s ease;
-      position: relative;
-    }
+            to {
+                opacity: 1;
+            }
+        }
 
-    @keyframes popUp {
-      from {
-        transform: scale(0.7);
-        opacity: 0;
-      }
+        .modal-content {
+            background: white;
+            border-radius: 20px;
+            padding: 25px;
+            max-width: 500px;
+            text-align: center;
+            box-shadow: 0 0 20px rgba(255, 105, 180, 0.6);
+            color: #333;
+            animation: popUp 0.4s ease;
+            position: relative;
+        }
 
-      to {
-        transform: scale(1);
-        opacity: 1;
-      }
-    }
+        @keyframes popUp {
+            from {
+                transform: scale(0.7);
+                opacity: 0;
+            }
 
-    .cerrar {
-      position: absolute;
-      top: 15px;
-      right: 25px;
-      font-size: 24px;
-      cursor: pointer;
-      color: #ff4081;
-    }
+            to {
+                transform: scale(1);
+                opacity: 1;
+            }
+        }
 
-    #btnCarta {
-      padding: 10px 20px;
-      border: none;
-      background: #ff4081;
-      color: white;
-      border-radius: 10px;
-      font-size: 1rem;
-      cursor: pointer;
-      transition: transform 0.2s ease;
-      margin-top: 15px;
-    }
+        .cerrar {
+            position: absolute;
+            top: 15px;
+            right: 25px;
+            font-size: 24px;
+            cursor: pointer;
+            color: #ff4081;
+        }
 
-    #btnCarta:hover {
-      transform: scale(1.05);
-      background: #ff007f;
-    }
-  </style>
+        #btnCarta {
+            padding: 10px 20px;
+            border: none;
+            background: #ff4081;
+            color: white;
+            border-radius: 10px;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: transform 0.2s ease;
+            margin-top: 15px;
+        }
+
+        #btnCarta:hover {
+            transform: scale(1.05);
+            background: #ff007f;
+        }
+    </style>
+
 
 </head>
 
 <body>
 
-  <div class="dedicatoria">
-    💫 Para <b>Chaico</b> 💫<br>
-    Porque aunque digas que te estreso 😅, igual te tengo mucho cariño.<br>
-    Tienes un gran corazón (aunque venga con carácter incluido 😜).<br>
-    <span>Espero te saque una sonrisa 💖</span>
-  </div>
-
-  <div class="foto-container" id="fotos"></div>
-
-  <div class="karaoke" id="karaoke">
-    <p class="letra">♪ Ella es hermosa, aunque reniegue sin razón ♪</p>
-    <p class="letra">♪ Se estresa por nada, pero tiene un gran corazón ♪</p>
-    <p class="letra">♪ Ama la comida coreana y esas series sin final ♪</p>
-    <p class="letra">♪ Y cuando sonríe… todo vuelve a estar bien ♪</p>
-    <p class="letra">♪ Su mirada calma el mundo, aunque diga que la estreso ♪</p>
-    <p class="letra">♪ Y sí, reniega un poco, pero la quiero por eso ♪</p>
-    <p class="letra">♪ Detrás de su carácter hay ternura de verdad ♪</p>
-    <p class="letra">♪ Y tenerla en mi vida… ya es felicidad ♪</p>
-  </div>
-
-
-  <audio id="audio" src="fotos_audio/bonito.mp3"></audio>
-
-  <div class="final" id="final">
-    🌸 Hecho con cariño, sin presión,<br>
-    solo para recordarte que eres una gran persona 💫
-    <br><br>
-    <button id="btnCarta" style="display:none;">💌 Abrir carta</button>
-  </div>
-
-  <!-- MODAL DE CARTA -->
-  <div id="modalCarta" class="modal">
-    <div class="modal-content">
-      <span id="cerrarModal" class="cerrar">&times;</span>
-      <h2>💌 Para Chaico</h2>
-      <p>
-        Tienes un gran corazón, incluso cuando te enojas o te estresas por todo 😅.
-        A veces me duele cuando dices que te estreso, porque lo último que quiero es hacerte sentir así.
-        Pero, aun con tus enojos y cambios de humor, siempre terminas mostrándome el lado más bonito de ti.
-        Eres una gran persona, y aunque no te lo diga siempre, te tengo mucho cariño 💖.
-        Y bueno… ya sabes que soy medio seco, no hablo mucho, ni sé qué decirte a veces 😅.
-        Me quedo callado nomás, pero créeme, igual me importas más de lo que parezco.
-      </p>
+    <div class="dedicatoria">
+        💫 Para <b>Chaico</b> 💫<br>
+        Porque aunque digas que te estreso 😅, igual te tengo mucho cariño.<br>
+        Tienes un gran corazón (aunque venga con carácter incluido 😜).<br>
+        <span>Espero te saque una sonrisa 💖</span>
     </div>
-  </div>
 
-  <script>
-    const audio = document.getElementById('audio');
-    const dedicatoria = document.querySelector('.dedicatoria');
-    const karaoke = document.getElementById('karaoke');
-    const letras = document.querySelectorAll('.letra');
-    const final = document.getElementById('final');
-    const fotos = document.getElementById('fotos');
-    const modal = document.getElementById('modalCarta'); // 💌 Modal
-    const btnCarta = document.getElementById('btnCarta'); // 💌 Botón para abrir modal
-    const cerrarModal = document.getElementById('cerrarModal'); // ❌ Botón para cerrar modal
+    <div class="foto-container" id="fotos"></div>
 
-    // CONFIGURACIÓN PERSONAL 🎵
-    const delayKaraoke = 10;
-    const tiempos = [10, 15, 20, 25, 30, 35, 40, 45];
-    const ocultarKaraoke = 55;
-    const mostrarFinal = 65;
+    <div class="karaoke" id="karaoke">
+        <p class="letra">♪ Ella es hermosa, aunque reniegue sin razón ♪</p>
+        <p class="letra">♪ Se estresa por nada, pero tiene un gran corazón ♪</p>
+        <p class="letra">♪ Ama la comida coreana y esas series sin final ♪</p>
+        <p class="letra">♪ Y cuando sonríe… todo vuelve a estar bien ♪</p>
+        <p class="letra">♪ Su mirada calma el mundo, aunque diga que la estreso ♪</p>
+        <p class="letra">♪ Y sí, reniega un poco, pero la quiero por eso ♪</p>
+        <p class="letra">♪ Detrás de su carácter hay ternura de verdad ♪</p>
+        <p class="letra">♪ Y tenerla en mi vida… ya es felicidad ♪</p>
+    </div>
 
-    const fotosPorLetra = [
-      ["fotos_audio/foto1.jpg"],
-      ["fotos_audio/foto2.jpg"],
-      ["fotos_audio/foto3.jpg"],
-      ["fotos_audio/foto4.jpg"],
-      ["fotos_audio/foto5.jpg"],
-      ["fotos_audio/foto6.jpg"],
-      ["fotos_audio/foto7.jpg"],
-      ["fotos_audio/foto8.jpg"]
-    ];
 
-    let indice = 0;
+    <audio id="audio" src="bonito.mp3"></audio>
 
-    // 🔘 BOTÓN DE INICIO
-    const btnIniciar = document.createElement('button');
-    btnIniciar.textContent = '🎵 Iniciar dedicatoria';
-    btnIniciar.style.cssText = `
+    <div class="final" id="final">
+        🌸 Hecho con cariño, sin presión,<br>
+        solo para recordarte que eres una gran persona 💫
+        <br><br>
+        <button id="btnCarta" style="display:none;">💌 Abrir carta</button>
+    </div>
+
+    <!-- MODAL DE CARTA -->
+    <div id="modalCarta" class="modal">
+        <div class="modal-content">
+            <span id="cerrarModal" class="cerrar">&times;</span>
+            <h2>💌 Para Chaico</h2>
+            <p>
+                Tienes un gran corazón, incluso cuando te enojas o te estresas por todo 😅.
+                A veces me duele cuando dices que te estreso, porque lo último que quiero es hacerte sentir así.
+                Pero, aun con tus enojos y cambios de humor, siempre terminas mostrándome el lado más bonito de ti.
+                Eres una gran persona, y aunque no te lo diga siempre, te tengo mucho cariño 💖.
+                Y bueno… ya sabes que soy medio seco, no hablo mucho, ni sé qué decirte a veces 😅.
+                Me quedo callado nomás, pero créeme, igual me importas más de lo que parezco.
+            </p>
+        </div>
+    </div>
+
+    <script>
+        const audio = document.getElementById('audio');
+        const dedicatoria = document.querySelector('.dedicatoria');
+        const karaoke = document.getElementById('karaoke');
+        const letras = document.querySelectorAll('.letra');
+        const final = document.getElementById('final');
+        const fotos = document.getElementById('fotos');
+        const modal = document.getElementById('modalCarta'); // 💌 Modal
+        const btnCarta = document.getElementById('btnCarta'); // 💌 Botón para abrir modal
+        const cerrarModal = document.getElementById('cerrarModal'); // ❌ Botón para cerrar modal
+
+        // CONFIGURACIÓN PERSONAL 🎵
+        const delayKaraoke = 10;
+        const tiempos = [10, 15, 20, 25, 30, 35, 40, 45];
+        const ocultarKaraoke = 55;
+        const mostrarFinal = 65;
+
+        const fotosPorLetra = [
+            ["foto1.jpg"],
+            ["foto2.jpg"],
+            ["foto3.jpg"],
+            ["foto4.jpg"],
+            ["foto5.jpg"],
+            ["foto6.jpg"],
+            ["foto7.jpg"],
+            ["foto8.jpg"]
+        ];
+
+        let indice = 0;
+
+        // 🔘 BOTÓN DE INICIO
+        const btnIniciar = document.createElement('button');
+        btnIniciar.textContent = '🎵 Iniciar dedicatoria';
+        btnIniciar.style.cssText = `
         position: fixed;
         top: 50%;
         left: 50%;
@@ -502,82 +346,82 @@
         cursor: pointer;
         box-shadow: 0 0 15px rgba(0,0,0,0.3);
     `;
-    document.body.appendChild(btnIniciar);
+        document.body.appendChild(btnIniciar);
 
-    // 🔇 Ocultar la dedicatoria hasta que se inicie
-    dedicatoria.style.display = 'none';
-    karaoke.style.display = 'none';
-    final.style.display = 'none';
-
-    btnIniciar.addEventListener('click', () => {
-      // Mostrar dedicatoria al iniciar
-      dedicatoria.style.display = 'block';
-      audio.play();
-      btnIniciar.remove(); // eliminar el botón
-    });
-
-    // Cuando el audio empieza, programa el karaoke
-    audio.addEventListener('play', () => {
-      setTimeout(() => {
+        // 🔇 Ocultar la dedicatoria hasta que se inicie
         dedicatoria.style.display = 'none';
-        karaoke.style.display = 'block';
-      }, delayKaraoke * 1000);
-    });
-
-    // Control de letras, fotos y final
-    audio.addEventListener('timeupdate', () => {
-      if (indice < tiempos.length && audio.currentTime >= tiempos[indice]) {
-        letras.forEach(l => l.classList.remove('activa'));
-        letras[indice].classList.add('activa');
-
-        fotos.innerHTML = fotosPorLetra[indice]
-          .map(f => `<img src="${f}" alt="Foto">`)
-          .join("");
-        fotos.classList.add('mostrar');
-        setTimeout(() => fotos.classList.remove('mostrar'), 4000);
-
-        indice++;
-      }
-
-      if (audio.currentTime >= ocultarKaraoke && karaoke.style.display !== 'none') {
         karaoke.style.display = 'none';
-      }
+        final.style.display = 'none';
 
-      if (audio.currentTime >= mostrarFinal && final.style.display !== 'block') {
-        final.style.display = 'block';
-        btnCarta.style.display = 'inline-block'; // 💌 Mostrar botón de carta
-      }
+        btnIniciar.addEventListener('click', () => {
+            // Mostrar dedicatoria al iniciar
+            dedicatoria.style.display = 'block';
+            audio.play();
+            btnIniciar.remove(); // eliminar el botón
+        });
 
-    });
+        // Cuando el audio empieza, programa el karaoke
+        audio.addEventListener('play', () => {
+            setTimeout(() => {
+                dedicatoria.style.display = 'none';
+                karaoke.style.display = 'block';
+            }, delayKaraoke * 1000);
+        });
+
+        // Control de letras, fotos y final
+        audio.addEventListener('timeupdate', () => {
+            if (indice < tiempos.length && audio.currentTime >= tiempos[indice]) {
+                letras.forEach(l => l.classList.remove('activa'));
+                letras[indice].classList.add('activa');
+
+                fotos.innerHTML = fotosPorLetra[indice]
+                    .map(f => `<img src="${f}" alt="Foto">`)
+                    .join("");
+                fotos.classList.add('mostrar');
+                setTimeout(() => fotos.classList.remove('mostrar'), 4000);
+
+                indice++;
+            }
+
+            if (audio.currentTime >= ocultarKaraoke && karaoke.style.display !== 'none') {
+                karaoke.style.display = 'none';
+            }
+
+            if (audio.currentTime >= mostrarFinal && final.style.display !== 'block') {
+                final.style.display = 'block';
+                btnCarta.style.display = 'inline-block'; // 💌 Mostrar botón de carta
+            }
+
+        });
 
 
-    // 💌 Abrir el modal sin detener la música
-    btnCarta.addEventListener('click', () => {
-      modal.style.display = 'flex';
-    });
+        // 💌 Abrir el modal sin detener la música
+        btnCarta.addEventListener('click', () => {
+            modal.style.display = 'flex';
+        });
 
-    // ❌ Cerrar el modal
-    cerrarModal.addEventListener('click', () => {
-      modal.style.display = 'none';
-    });
+        // ❌ Cerrar el modal
+        cerrarModal.addEventListener('click', () => {
+            modal.style.display = 'none';
+        });
 
-    // Cerrar al hacer clic fuera del contenido
-    window.addEventListener('click', (e) => {
-      if (e.target === modal) modal.style.display = 'none';
-    });
+        // Cerrar al hacer clic fuera del contenido
+        window.addEventListener('click', (e) => {
+            if (e.target === modal) modal.style.display = 'none';
+        });
 
-  </script>
+    </script>
 
 
-  <script>
-    // Detectar si es móvil
-    const esMovil = /Android|iPhone|iPad|iPod|Opera Mini|IEMobile|Mobile/i.test(navigator.userAgent);
+    <script>
+        // Detectar si es móvil
+        const esMovil = /Android|iPhone|iPad|iPod|Opera Mini|IEMobile|Mobile/i.test(navigator.userAgent);
 
-    const estilo = document.createElement("style");
+        const estilo = document.createElement("style");
 
-    if (esMovil) {
-      // 🌸 CSS para MÓVIL
-      estilo.innerHTML = `
+        if (esMovil) {
+            // 🌸 CSS para MÓVIL
+            estilo.innerHTML = `
             * {margin:0;padding:0;box-sizing:border-box;font-family:'Poppins',sans-serif;}
             body {
                 background: linear-gradient(135deg, #ffdee9, #b5fffc);
@@ -640,9 +484,9 @@
             @keyframes popUp {from{transform:scale(0.7);opacity:0;}to{transform:scale(1);opacity:1;}}
             .cerrar {position:absolute;top:10px;right:15px;font-size:22px;cursor:pointer;color:#ff4081;}
         `;
-    } else {
-      // 💻 CSS para PC
-      estilo.innerHTML = `
+        } else {
+            // 💻 CSS para PC
+            estilo.innerHTML = `
             * {margin:0;padding:0;box-sizing:border-box;font-family:'Poppins',sans-serif;}
             body {
                 background: linear-gradient(135deg, #ffdee9, #b5fffc);
@@ -703,17 +547,14 @@
             }
             #btnCarta:hover {transform:scale(1.05);background:#ff007f;}
         `;
-    }
+        }
 
-    document.head.appendChild(estilo);
-  </script>
+        document.head.appendChild(estilo);
+    </script>
 
 
 
 
 </body>
 
-
 </html>
-
-
