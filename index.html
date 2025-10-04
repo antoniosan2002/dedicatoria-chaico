@@ -354,11 +354,24 @@
         final.style.display = 'none';
 
         btnIniciar.addEventListener('click', () => {
-            // Mostrar dedicatoria al iniciar
             dedicatoria.style.display = 'block';
-            audio.play();
-            btnIniciar.remove(); // eliminar el botón
+
+            // Forzar recarga y reproducción segura
+            audio.currentTime = 0;
+            const playPromise = audio.play();
+
+            if (playPromise !== undefined) {
+                playPromise.then(() => {
+                    // ✅ Éxito: se reproduce
+                    btnIniciar.remove();
+                }).catch((error) => {
+                    // ❌ Si el navegador bloquea, reintentar
+                    alert("Presiona nuevamente para iniciar el audio 🎵");
+                    console.log("Error al reproducir:", error);
+                });
+            }
         });
+
 
         // Cuando el audio empieza, programa el karaoke
         audio.addEventListener('play', () => {
